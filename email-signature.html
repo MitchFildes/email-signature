@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mitch's Email Signature</title>
+<style>
+  body { margin:0; padding:40px 16px; background:#f4f4f2; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; color:#222; }
+  .wrap { max-width:640px; margin:0 auto; }
+  h1 { font-size:20px; margin:0 0 6px; }
+  p.lead { margin:0 0 24px; color:#555; font-size:14px; line-height:1.5; }
+  .card { background:#fff; border-radius:12px; padding:28px; box-shadow:0 1px 3px rgba(0,0,0,.08); overflow-x:auto; }
+  .actions { margin-top:20px; display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  button { background:#FF4D00; color:#fff; border:0; border-radius:8px; padding:12px 20px; font-size:15px; font-weight:600; cursor:pointer; }
+  button:hover { background:#e64500; }
+  #status { font-size:14px; color:#2a7a2a; }
+  ol { font-size:14px; line-height:1.7; color:#444; padding-left:20px; margin-top:28px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Email signature</h1>
+  <p class="lead">Click <strong>Copy signature</strong>, then paste into Gmail.</p>
+
+  <div class="card">
+    <!-- SIGNATURE START -->
+    <div id="signature">
+    <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;">
+      <tr>
+        <td style="padding:0 16px 0 0;vertical-align:middle;">
+          <a href="https://mitchellfildes.com/" style="text-decoration:none;border:0;"><img src="https://mitchfildes.github.io/email-signature/mf-logo.png" width="84" height="84" alt="MF logo" style="display:block;width:84px;height:84px;border:0;"></a>
+        </td>
+        <td style="width:3px;background-color:#FF4D00;font-size:0;line-height:0;">&nbsp;</td>
+        <td style="padding:0 0 0 16px;vertical-align:middle;">
+          <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+            <tr><td colspan="2" style="padding:0 0 6px 0;font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:bold;color:#222222;line-height:22px;">Mitchell Fildes</td></tr>
+            <tr>
+              <td style="padding:3px 8px 3px 0;vertical-align:middle;line-height:0;"><img src="https://mitchfildes.github.io/email-signature/icon-web.png" width="16" height="16" alt="Website" style="display:block;width:16px;height:16px;border:0;"></td>
+              <td style="padding:3px 0;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:16px;"><a href="https://mitchellfildes.com/" style="color:#444444;text-decoration:none;">mitchellfildes.com</a></td>
+            </tr>
+            <tr>
+              <td style="padding:3px 8px 3px 0;vertical-align:middle;line-height:0;"><img src="https://mitchfildes.github.io/email-signature/icon-email.png" width="16" height="16" alt="Email" style="display:block;width:16px;height:16px;border:0;"></td>
+              <td style="padding:3px 0;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:16px;"><a href="mailto:mitch@mitchellfildes.com" style="color:#444444;text-decoration:none;">mitch@mitchellfildes.com</a></td>
+            </tr>
+            <tr>
+              <td style="padding:3px 8px 3px 0;vertical-align:middle;line-height:0;"><img src="https://mitchfildes.github.io/email-signature/icon-linkedin.png" width="16" height="16" alt="LinkedIn" style="display:block;width:16px;height:16px;border:0;"></td>
+              <td style="padding:3px 0;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:16px;"><a href="https://www.linkedin.com/in/mitchell-fildes-56526592" style="color:#444444;text-decoration:none;">LinkedIn</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    </div>
+    <!-- SIGNATURE END -->
+  </div>
+
+  <div class="actions">
+    <button id="copy">Copy signature</button>
+    <span id="status" role="status"></span>
+  </div>
+
+  <ol>
+    <li>In Gmail: Settings (cog) → <strong>See all settings</strong> → <strong>General</strong> → <strong>Signature</strong>.</li>
+    <li>Create a new signature, click in the box and paste (Cmd+V).</li>
+    <li>Set it as the default for new emails and replies, then <strong>Save Changes</strong> at the bottom.</li>
+    <li>Send yourself a test email and check it on desktop and phone.</li>
+  </ol>
+</div>
+<script>
+document.getElementById('copy').addEventListener('click', async () => {
+  const el = document.getElementById('signature');
+  const status = document.getElementById('status');
+  try {
+    const html = el.innerHTML;
+    await navigator.clipboard.write([new ClipboardItem({
+      'text/html': new Blob([html], {type:'text/html'}),
+      'text/plain': new Blob([el.innerText], {type:'text/plain'})
+    })]);
+    status.textContent = 'Copied — now paste into Gmail.';
+  } catch (e) {
+    const range = document.createRange(); range.selectNode(el);
+    const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+    const ok = document.execCommand('copy'); sel.removeAllRanges();
+    status.textContent = ok ? 'Copied — now paste into Gmail.' : 'Select the signature and press Cmd+C.';
+  }
+});
+</script>
+</body>
+</html>
